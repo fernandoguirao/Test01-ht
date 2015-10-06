@@ -1,0 +1,1 @@
+{"attributes":{"email":{"type":"string","unique":true,"required":true},"password":{"type":"string","unique":false,"required":true},"nickname":{"type":"string","unique":false,"required":true},"options_id":{"type":"integer","unique":false,"required":true}},"globalId":"User","identity":"user"}

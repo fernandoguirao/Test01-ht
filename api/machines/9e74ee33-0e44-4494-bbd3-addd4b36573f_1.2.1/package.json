@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "machinepack-sockets": "1.2.1"
+  },
+  "machinepack": {
+    "machines": []
+  }
+}

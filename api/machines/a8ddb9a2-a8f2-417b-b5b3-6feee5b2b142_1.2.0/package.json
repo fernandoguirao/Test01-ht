@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "machinepack-math": "1.2.0"
+  },
+  "machinepack": {
+    "machines": []
+  }
+}

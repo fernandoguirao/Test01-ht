@@ -1,0 +1,23 @@
+{
+  "dependencies": {},
+  "machinepack": {
+    "machines": ["create_chat", "create_chatrooms", "create_user", "destroy_chat", "destroy_chatrooms", "destroy_user", "findOne_chat", "findOne_chatrooms", "findOne_user", "find_chat", "find_chatrooms", "find_user", "update_chat", "update_chatrooms", "update_user"],
+    "machineVersions": {
+      "create_chat": "0.0.3",
+      "create_chatrooms": "0.0.7",
+      "create_user": "0.0.4",
+      "destroy_chat": "0.0.3",
+      "destroy_chatrooms": "0.0.7",
+      "destroy_user": "0.0.4",
+      "findOne_chat": "0.0.3",
+      "findOne_chatrooms": "0.0.7",
+      "findOne_user": "0.0.4",
+      "find_chat": "0.0.3",
+      "find_chatrooms": "0.0.7",
+      "find_user": "0.0.4",
+      "update_chat": "0.0.3",
+      "update_chatrooms": "0.0.7",
+      "update_user": "0.0.4"
+    }
+  }
+}

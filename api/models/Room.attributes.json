@@ -1,0 +1,1 @@
+{"attributes":{"hash":{"type":"string","unique":false,"required":true},"user02_id":{"type":"integer","unique":false,"required":true},"user01_id":{"type":"integer","unique":false,"required":true}},"globalId":"Room","identity":"room"}

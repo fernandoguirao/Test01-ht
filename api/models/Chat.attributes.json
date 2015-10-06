@@ -1,0 +1,1 @@
+{"attributes":{"message":{"type":"string","unique":false,"required":true},"room_id":{"type":"integer","unique":false,"required":true},"user_id":{"type":"integer","unique":false,"required":true}},"globalId":"Chat","identity":"chat"}
