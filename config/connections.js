@@ -47,13 +47,13 @@ module.exports.connections = {
       password  : 'root',
       database  : 'heythere_1_0'
     },
-  /*    someMysqlServer: {
-      adapter    : 'sails-mysql',
-      host      : 'localhost',
-      user      : 'bigband_user',
-      password  : '29199096k',
-      database  : 'bigband_me'
-    },*/
+    //   someMysqlServer: {
+    //   adapter    : 'sails-mysql',
+    //   host      : 'localhost',
+    //   user      : 'bigband_user',
+    //   password  : '29199096k',
+    //   database  : 'bigband_me'
+    // },
 
 
   /***************************************************************************

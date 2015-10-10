@@ -1,0 +1,36 @@
+<nav class="navbar navbar-default navbar-static-top" ng-controller="topBarCtrl">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        Hey There
+      </a>
+    </div>
+    <div class="nav navbar-nav navbar-right">
+      <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#loginModal" ng-if="!myNickname">
+        Login
+      </button>
+
+      <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#registerModal" ng-if="!myNickname">
+        Register
+      </button>
+
+
+      <div class="dropdown" ng-if="myNickname">
+        <button id="dLabel" class="btn btn-default navbar-btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{myNickname}}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dLabel">
+          <li>
+            <a ng-click="cerrarSesion()">
+              Desconectar
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<%- partial('registerModalView') %>
+<%- partial('loginModalView') %>

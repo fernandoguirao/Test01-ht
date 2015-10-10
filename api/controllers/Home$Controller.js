@@ -33,7 +33,7 @@ module.exports = {
                             },
                             action: "display_view",
                             status: 200,
-                            view: "homepage"
+                            view: "app/components/home/homeView"
                         });
 
                     }

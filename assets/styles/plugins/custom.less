@@ -1,19 +1,65 @@
 
-.me-author,.you-author {
+.meauthor,.alert {
 	span.close {
+		display: none;
     font-weight: normal;
     text-shadow: none;
     opacity: 1;
     font-size: 1em;
     line-height: 1.6;
+    margin-right:20px;
   }
 }
 
-
-.me-author {
-	background-color:#26a69a!important;
-	color:white;
-	* {
+.alert {
+	background-color:rgba(255,255,255,.5);
+	&.meauthor {
+		background-color:#0F9688!important;
 		color:white;
+		* {
+			color:white;
+		}
+	}
+}
+
+
+
+body {
+	padding-bottom:129px;
+	background-color:#E3DCD4;
+}
+
+.navbar-form {
+    border-color: transparent;
+}
+.navbar-fixed-bottom {
+	background-color: #009688;
+	form {
+		width: 100%;
+	}
+	button {
+		width: 9%;
+		margin-left:0;
+		margin-right:0;
+	}
+	.form-group {
+		width:90%;
+		input {
+			width:100%;
+		}
+	}
+	@media(max-width:1024px){
+		form {
+			.form-group {
+				width: 82%;
+				margin: 0;
+				display: inline-block;
+			}
+			button {
+				width: 16%;
+				padding: 7px;
+				margin-top: -3px;
+			}
+		}
 	}
 }

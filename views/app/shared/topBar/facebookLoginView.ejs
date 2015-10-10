@@ -1,0 +1,5 @@
+<div ng-controller="facebookLoginCtrl" id="fbloginCtrl">
+  <!-- <a class="btn btn-info" href="{{url}}" target="_blank">Conecta con Facebook</a> -->
+  <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+  </fb:login-button>
+</div>

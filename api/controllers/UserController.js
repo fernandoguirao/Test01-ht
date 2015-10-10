@@ -1,5 +1,91 @@
 var Machine = require("machine");
 module.exports = {
+    'fblogin': function(req, res) {
+        Machine.build({
+            inputs: {},
+            exits: {
+                respond: {}
+            },
+            fn: function(inputs, exits) {
+                // Get access token
+                sails.machines['c8d25931-bf1e-4997-be03-18e7c605d85a_1.1.0'].getAccessToken({
+                    "appId": "545559668933267",
+                    "appSecret": "61fac5e3cb34915ca880ed4cf7f0835c",
+                    "code": "AQA38zOK_L5d2oATylLc2c-dxR3FzWT4hP9GttOKNiePwMIS5kvkKNJsiTKo73FUZEY7ULQ8CRK-pQ34_r-VjoCN3t6gb7UHylc40Vjp3UaSJKRpkmv36SM5_8BCXD9UnnEDn8YnxKZrY4clneNxStcHx03oJOGWhNuU0xnK4UZlKkl2dap20UA02M91uTqMX1XOzngcG0B-xwkatiiMiniitWCGE9NNZgioz-huD4zsNQy5_1n7_HLzm943_95Krc2CET2hJSdCNwtc-dt8uuVyp3KnldP2ObQXT3oc9Jx9R4Bz9WCBBsqPzv_7YkbItII#",
+                    "callbackUrl": "http://bigband.me:1337/"
+                }).exec({
+                    "error": function(getAccessToken) {
+                        return exits.error({
+                            data: getAccessToken,
+                            status: 500
+                        });
+
+                    },
+                    "success": function(getAccessToken) {
+                        // Get user by access token
+                        sails.machines['c8d25931-bf1e-4997-be03-18e7c605d85a_1.1.0'].getUserByAccessToken({
+                            "accessToken": (getAccessToken && getAccessToken.token)
+                        }).exec({
+                            "error": function(getUserByAccessToken) {
+                                return exits.error({
+                                    data: getUserByAccessToken,
+                                    status: 500
+                                });
+
+                            },
+                            "success": function(getUserByAccessToken) {
+                                return exits.respond({
+                                    data: getUserByAccessToken,
+                                    action: "respond_with_result_and_status",
+                                    status: 200
+                                });
+
+                            }
+                        });
+
+                    }
+                });
+            }
+        }).configure(req.params.all(), {
+            respond: res.response,
+            error: res.negotiate
+        }).exec();
+    },
+    'unlogged': function(req, res) {
+        Machine.build({
+            inputs: {},
+            exits: {
+                respond: {}
+            },
+            fn: function(inputs, exits) {
+                // Get Facebook login URL
+                sails.machines['c8d25931-bf1e-4997-be03-18e7c605d85a_1.1.0'].getLoginUrl({
+                    "appId": "545559668933267",
+                    "callbackUrl": "http://bigband.me:1337/",
+                    "permissions": ["user_friends", "email", "public_profile"]
+                }).exec({
+                    "error": function(getFacebookLoginURL) {
+                        return exits.error({
+                            data: getFacebookLoginURL,
+                            status: 500
+                        });
+
+                    },
+                    "success": function(getFacebookLoginURL) {
+                        return exits.respond({
+                            data: getFacebookLoginURL,
+                            action: "respond_with_result_and_status",
+                            status: 200
+                        });
+
+                    }
+                });
+            }
+        }).configure(req.params.all(), {
+            respond: res.response,
+            error: res.negotiate
+        }).exec();
+    },
     'new': function(req, res) {
         Machine.build({
             inputs: {

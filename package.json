@@ -39,6 +39,7 @@
   "license": "",
   "devDependencies": {
     "machinepack-arrays": "^5.2.0",
+    "machinepack-facebook": "^1.1.0",
     "machinepack-math": "^1.2.0",
     "machinepack-passwords": "^2.3.0",
     "machinepack-session": "^0.4.0",
