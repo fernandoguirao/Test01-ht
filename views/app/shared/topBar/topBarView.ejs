@@ -17,12 +17,18 @@
 
       <div class="dropdown" ng-if="myNickname">
         <button id="dLabel" class="btn btn-default navbar-btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img ng-src="{{myPicture}}" alt="userAvatar" WIDTH="28" />
           {{myNickname}}
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dLabel">
           <li>
-            <a ng-click="cerrarSesion()">
+            <a href="">
+              Tu ID: {{myId}}
+            </a>
+          </li>
+          <li>
+            <a ng-click="cerrarSesion()" href="">
               Desconectar
             </a>
           </li>

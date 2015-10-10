@@ -1,66 +1,76 @@
-<div ng-controller="contactsCtrl">
+<div ng-controller="contactsCtrl" id="contactsCtrl">
+  <div ng-controller="roomsCtrl">
+    <table class="table" id="list-users">
+      <tbody>
+        <tr class="chat-select" ng-repeat="userz in users | filter: '!' + myNickname" ng-click="joinRoom($event,userz.id,userz.nickname)">
+          <td class="pic">
+            <span class="picture">
+              <img ng-src="{{userz.picture}}" alt="{{userz.nickname}} picture" />
+            </span>
+          </td>
+          <td>
+            <p class="nickname">
+              {{userz.nickname}}
+            </p>
+            <p class="lastMessage">
+              Lorem ipsum dolor sit amet consequetur
+            </p>
+          </td>
+          <td>
+            <span class="date">
+              18:35
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>
-          Nickname
-        </th>
-        <th>
-          #
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="chat-select" ng-repeat="userz in users">
-        <td>
-          {{userz.id}} / {{userz.nickname}}
-        </td>
-        <td>
-          <button class="btn btn-default" ng-click="joinRoom(userz.id,$event,userz.nickname)">
-            Entrar
-          </button>
-          <button class="btn btn-default hide" ng-click="hiRoom(userz.nickname)">
-            Di hola
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="chat-ui hide">
-    <div class="row">
-      <!-- ALL CHATS -->
-      <div class="alert alert-success" ng-class="{meauthor: chatz.user_id == myid}" role="alert" ng-repeat="chatz in chatList">
-        {{chatz.message}}
-        <span class="close">
-          {{chatz.user_id}}
-        </span>
-      </div>
-      <!-- END ALL CHATS -->
-      <div class="alert alert-success" ng-class="{meauthor: chat.author == mynickname}" role="alert" ng-repeat="chat in chats">
-        {{chat.message}}
-        <span class="close">
-          {{chat.author}} -> {{chat.recipient}}
-        </span>
-      </div>
-    </div>
-    <div id="navBottom"></div>
-    <nav class="navbar navbar-default navbar-fixed-bottom" >
-      <div class="container">
-        <form class="navbar-form navbar-left" ng-submit="sendChat()">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Tu mensaje" ng-model="roomMessage.message">
+    <div class="chat-ui hide">
+      <div class="row">
+        <!-- ALL CHATS -->
+        <div class="messageGroup" ng-repeat="chatz in chatList" ng-class="chatz.user_id == myId ? 'me-author' : 'you-author' " role="alert">
+          <span class="picture">
+            <img ng-src="{{you.picture}}" ng-if="chatz.user_id != myId" alt="" />
+          </span>
+          <div class="bubble">
+            <span class="message">
+              {{chatz.message}}
+            </span>
+            <span class="date">
+              18:38{{chatz.date}}
+            </span>
           </div>
-          <button type="submit" class="btn btn-default">Enviar</button>
-        </form>
-  <!--       <div class="nav navbar-nav navbar-right">
+        </div>
+        <!-- END ALL CHATS -->
+        <div class="messageGroup" role="alert" ng-repeat="chat in chats" ng-class="chat.author == myNickname ? 'me-author' : 'you-author' ">
+          <span class="picture">
+            <img ng-src="{{you.picture}}" ng-if="chat.author != myNickname" alt="" />
+          </span>
+          <div class="bubble">
+            <span class="message">
+              {{chat.message}}
+            </span>
+            <span class="date">
+              18:38{{chat.date}}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div id="navBottom"></div>
+      <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+          <form class="navbar-form navbar-left" ng-submit="sendChat()">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Tu mensaje" ng-model="roomMessage.message">
+            </div>
+            <button type="submit" class="btn btn-default">Enviar</button>
+          </form>
+          <!--       <div class="nav navbar-nav navbar-right">
           <button class="btn btn-default" ng-click="joinRoom()">Join room</button>
           <button class="btn btn-default" ng-click="writeRoom()">Write room</button>
         </div> -->
-      </div>
-    </nav>
+        </div>
+      </nav>
+    </div>
   </div>
-
-
 </div>

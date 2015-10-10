@@ -1,33 +1,31 @@
 module.exports.routes = {
-  "get /user/fb-login": {
-    "target": "UserController.fblogin"
-  },
-  "get /": {
-    "target": "Home$Controller.find"
-  },
-  "post /user/new": {
-    "target": "UserController.new"
-  },
   "post /user/login": {
     "target": "UserController.login"
   },
   "get /user": {
     "target": "UserController.find"
   },
-  "get /user/unlogged": {
-    "target": "UserController.unlogged"
+  "post /room": {
+    "target": "RoomController.create"
   },
   "post /room/join": {
     "target": "RoomController.join"
   },
-  "post /room": {
-    "target": "RoomController.create"
+  "post /user/new": {
+    "target": "UserController.new"
   },
-  "get /hello": {
-    "target": "HelloController.find"
+  "get /": {
+    "target": "Home$Controller.find"
   },
   "post /message": {
     "target": "MessageController.create"
+  },
+  "get /user/unlogged": {
+    "target": "UserController.unlogged"
+  },
+  "get /user/:id": {
+    "target": "UserController.$id",
+    "skipAssets": true
   },
   "post /room/:hash": {
     "target": "RoomController.post_$hash",

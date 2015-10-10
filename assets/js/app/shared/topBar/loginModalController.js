@@ -27,8 +27,9 @@
         .success(function(data) {
 
           // Guardamos cookies con nickname e id
-          $cookies.put('nickname', data.nickname);
-          $cookies.put('id', data.id);
+          $cookies.put('user.nickname', data.nickname);
+          $cookies.put('user.id', data.id);
+          $cookies.put('user.picture',data.picture);
 
           // Servicio puente para llamar checkLogged() en topBarController
           topBarService.checkLoggedBroadcast();
@@ -40,6 +41,7 @@
             console.log('Success -> Login vía api');
             console.log(data);
           }
+          angular.element(document.getElementById('contactsCtrl')).scope().getUsers();
         })
         .error(function(data) {
           // Log

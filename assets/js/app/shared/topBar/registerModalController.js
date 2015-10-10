@@ -11,16 +11,26 @@
 
     // Array datos de usuario desde formulario de registro
     $scope.user = {};
+    $scope.user.picture = 0;
+    $scope.user.first_name = 0;
+    $scope.user.last_name = 0;
     // Si no es registro vía Facebook
     $scope.fbComing = false;
 
     // Viene de facebooklogin -> servicio y sirve para llamar la función de registro
-    $scope.$on('callRegister', function(event,vEmail) {
+    $scope.$on('callRegister', function(event,vEmail,vFirstName,vLastName,vPicture) {
       $scope.user = {
         email : vEmail,
         nickname : vEmail,
-        password : 0
+        password : 0,
+        picture : vPicture,
+        first_name : vFirstName,
+        last_name : vLastName
       };
+      if(appConfig.debug){
+        console.log('Venimos de Facebook, vamos a registrar a este usuario');
+        console.log($scope.user);
+      }
       $scope.register();
       // Variable para identificar que es registro vía facebook y podamos intentar login si el usuario existe
       $scope.fbComing = true;

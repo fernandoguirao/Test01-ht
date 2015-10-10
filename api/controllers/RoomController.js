@@ -42,7 +42,7 @@ module.exports = {
                     },
                     "success": function(sendToAll) {
                         // Find One User
-                        sails.machines['_project_4053_0.0.0'].findOne_user({
+                        sails.machines['_project_4053_0.0.2'].findOne_user({
                             "criteria": {
                                 nickname: inputs.author
                             }
@@ -51,7 +51,7 @@ module.exports = {
                         }).exec({
                             "success": function(findOneUser) {
                                 // Find One Room
-                                sails.machines['_project_4053_0.0.0'].findOne_chatrooms({
+                                sails.machines['_project_4053_0.0.2'].findOne_chatrooms({
                                     "criteria": {
                                         hash: inputs.hash
                                     }
@@ -60,7 +60,7 @@ module.exports = {
                                 }).exec({
                                     "success": function(findOneRoom) {
                                         // Create Chat
-                                        sails.machines['_project_4053_0.0.0'].create_chat({
+                                        sails.machines['_project_4053_0.0.2'].create_chat({
                                             "message": inputs.message,
                                             "room_id": (findOneRoom && findOneRoom.id),
                                             "user_id": (findOneUser && findOneUser.id)
@@ -139,7 +139,7 @@ module.exports = {
             },
             fn: function(inputs, exits) {
                 // Find One Room
-                sails.machines['_project_4053_0.0.0'].findOne_chatrooms({
+                sails.machines['_project_4053_0.0.2'].findOne_chatrooms({
                     "criteria": {
                         hash: inputs.hash
                     }
@@ -148,7 +148,7 @@ module.exports = {
                 }).exec({
                     "success": function(findOneRoom) {
                         // List Chat
-                        sails.machines['_project_4053_0.0.0'].find_chat({
+                        sails.machines['_project_4053_0.0.2'].find_chat({
                             "criteria": {
                                 room_id: (findOneRoom && findOneRoom.id)
                             }
@@ -211,7 +211,7 @@ module.exports = {
             },
             fn: function(inputs, exits) {
                 // Find One Room
-                sails.machines['_project_4053_0.0.0'].findOne_chatrooms({
+                sails.machines['_project_4053_0.0.2'].findOne_chatrooms({
                     "criteria": {
                         user01_id: inputs.user01_id,
                         user02_id: inputs.user02_id
@@ -288,7 +288,7 @@ module.exports = {
                                             },
                                             "success": function(hash) {
                                                 // Create Room
-                                                sails.machines['_project_4053_0.0.0'].create_chatrooms({
+                                                sails.machines['_project_4053_0.0.2'].create_chatrooms({
                                                     "hash": " " + hash,
                                                     "user02_id": parseNumber,
                                                     "user01_id": parseNumber2
@@ -298,7 +298,9 @@ module.exports = {
                                                     "success": function(createRoom) {
                                                         return exits.respond({
                                                             data: {
-                                                                hashRoom: hash
+                                                                hashRoom: hash,
+                                                                user02_id: (createRoom && createRoom.user02_id),
+                                                                user01_id: (createRoom && createRoom.user01_id)
                                                             },
                                                             action: "respond_with_value_and_status",
                                                             status: 200

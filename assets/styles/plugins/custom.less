@@ -1,65 +1,205 @@
-
-.meauthor,.alert {
-	span.close {
-		display: none;
-    font-weight: normal;
-    text-shadow: none;
-    opacity: 1;
-    font-size: 1em;
-    line-height: 1.6;
-    margin-right:20px;
+// USUARIOS
+table#list-users {
+  background-color:white;
+}
+.chat-select {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  cursor:pointer;
+  &:hover {
+    background-color:#F4F4F5;
+  }
+  .nickname {
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom:4px;
+  }
+  .lastMessage {
+    font-weight: 400;
+color: rgba(0,0,0,.5);
+font-size: 13px;
+line-height: 1!important;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+width:161px;
+  }
+  .date {
+    font-weight: 400;
+    color: rgba(0,0,0,.6);
+    font-size: 12px;
+    text-align: right;
+  }
+  td.pic {
+    padding-right: 0;
+    text-align: center;
+    width: 58px;
+  }
+  .picture {
+    height: 40px;
+    width: 40px;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    border-radius: 100%;
+    margin-right: 0;
+    margin-top: 0;
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  td {
+    // padding:0!important;
   }
 }
 
-.alert {
-	background-color:rgba(255,255,255,.5);
-	&.meauthor {
-		background-color:#0F9688!important;
-		color:white;
-		* {
-			color:white;
-		}
-	}
+
+// BUBBLES MESSAGES
+.chat-ui {
+      padding: 1% 9%;
 }
-
-
-
+.messageGroup {
+  display: block;
+  margin-bottom: 14px;
+  .bubble {
+    background-color: white;
+    display: inline-block;
+    padding: 7px 10px;
+    border-radius: 4px;
+    position: relative;
+    max-width: 254px;
+    box-shadow: 0 1px 2px -2px rgba(0,0,0,.5);
+    .date {
+      font-size: 11px;
+      margin-left: 15px;
+      color: rgba(0,0,0,.5);
+      float: right;
+      position: relative;
+      top: 6px;
+    }
+    .message {
+      font-weight: 400;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      display: inline-block;
+      background-color: transparent;
+      width: 12px;
+      height: 19px;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+  &.me-author {
+    text-align: right;
+    .bubble {
+      background-color: #ddf7c8;
+      margin-right: 15px;
+      &:after {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAmCAYAAADeB1slAAAB+0lEQVR4Ab3VT0jTYRzH8fe2tDQzDKTpIQg8SHQZ1cVjRUePnToqRHSLqOiwQwRBJyvokKi1SzQa0R+q6TbTXG4+W+HE9k8nNCyZG5tERNifnyDfg8jQ9jx+4XV93nz4TWR+Jf43W1YrQAsmbkcCc2X102hgTUeHs9WCbhLouXjusAXdJHC6u6sdsKH3dnDBzb5rR4wu8L4dOmM0MDb78gLgMBZQueAdoM5YIFmYVECDscBcJb7qvnXlkAWdJLAmNPOiF7DrX7BudikcAOqNBeYqsd9ef/9xwKY7IBJfx73ALgMBWfEnoJ6elBUaAyJdjKb6PO5mC7XaGBCJbxNDgN3EAjGdH3NLRHNAJBbfX5eI5oD4vDT5YDA0uMfCNm0lIB8+9ik/6gJs2heISvxXuhi5qxbetVnYgm0FRLYc+5Fajt5PLE6ckEU6FmweUzPpkro6rIb3W9io1oDIlKIRwKF7gchW1Heg2UggU5r68ir8uAdo0hbIlFRR5UIPn/j7u51OZyuwF7DXFEgVIrmp+ZEB36jnbOexzjZgH1Bf9S+9yk9xNVn4kFK54KORmO+8+/alo8ABoGmzR6sGpvPjr+MLwYFw8s0Nv/L1ep7fO+XqcrUDLfIgOP7rf0RyOZIBDgINwG6gTh7TcYGPzy4DjZi69Y/lwOA1YvD+AVUYVzC106j7AAAAAElFTkSuQmCC');
+        bottom: 0;
+        right: -11px;
+      }
+    }
+    .picture {
+      display: none;
+    }
+  }
+  &.you-author {
+    .picture {
+      height: 40px;
+      width: 40px;
+      overflow: hidden;
+      position: relative;
+      display: inline-block;
+      border-radius: 100%;
+      margin-right: 10px;
+      top: 15px;
+      img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    .bubble {
+      &:after {
+        background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAmCAYAAADeB1slAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAZZJREFUeNq0l79Kw1AUh3tjSTRa0CWD+GcQBHUsDj6ALpLJuZBBcMjq6ib4CA4OggpuGXwIH0CIwS7aQRyl4JCmaY6/QCIxxqZN7vngkBBy73eTc3PviSCiRooQoiELSjpWGsywCDB4jVUAdG5Bi1sw4Bbw5iAIgnlWgaIoa9yCTe4cbGc/ip+QRRRFz5QgXYB+ViiD9FeE0R/mjVKfAILH7BNIFaCPXcohVYDRP7AJ0P6ACpAiQNsW4pVFgHYCcU//IENwQWOoJUCbcyqhkgD3ziJuaAKmFiRz/YkmZGJBssZcIkKaglIBru+NRqMrHH2qQKEA50vo9AxHj2oiikpHXHN/bRo1+CNIqrIvRJOldIRk4Pv+MRauD1k7UFGShWmauud5Zr/fv0M+PqvmoGwWxUlpWpa12O12jyC7DsPwTeo0zcsQc47jbPV6vRMIb1FkvYz7NkSNH5A4fzOxtNPptGzb3jEMY0PX9XVN05ZVVV3F+b7MHU2kQoTabrd15O6dpS5KGQ6Hp6wC13UXBNdPYMq3AAMA932Yhlf0jSsAAAAASUVORK5CYII=');
+        bottom: 0;
+        left: -10px;
+      }
+    }
+  }
+}
 body {
-	padding-bottom:129px;
-	background-color:#E3DCD4;
+  padding-bottom: 74px;
+  background-color: #D7DBD8;
 }
-
 .navbar-form {
-    border-color: transparent;
+  border-color: transparent!important;
+  box-shadow: none;
 }
 .navbar-fixed-bottom {
-	background-color: #009688;
-	form {
-		width: 100%;
-	}
-	button {
-		width: 9%;
-		margin-left:0;
-		margin-right:0;
-	}
-	.form-group {
-		width:90%;
-		input {
-			width:100%;
-		}
-	}
-	@media(max-width:1024px){
-		form {
-			.form-group {
-				width: 82%;
-				margin: 0;
-				display: inline-block;
-			}
-			button {
-				width: 16%;
-				padding: 7px;
-				margin-top: -3px;
-			}
-		}
-	}
+  background-color: #009688;
+  .container {
+        max-width: 868px;
+  }
+  form {
+    width: 100%;
+    input,button {
+      box-shadow: none!important;
+      border: none!important;
+          min-height: 36px;
+    }
+  }
+  button {
+    width: 9%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .form-group {
+    width: 90%;
+    input {
+      width: 100%;
+    }
+  }
+  @media(max-width:1024px) {
+    form {
+      .form-group {
+        width: 82%;
+        margin: 0;
+        display: inline-block;
+        padding: 0;
+      }
+      button {
+        width: 16%;
+        padding: 7px;
+        margin-top: -3px;
+        background-color: transparent!important;
+        border: none!important;
+        color: white!important;
+        text-align: left;
+      }
+    }
+  }
+}
+@media(max-width:768px) {
+  .navbar-header {
+    display: none;
+  }
+  .navbar-right {
+    text-align: right;
+    padding-right: 12px;
+  }
+}
+
+#container {
+  max-width: 824px;
+  background-color: #E3DBD8;
+  min-height: 500px;
+  box-shadow: 0px 1px 4px -1px rgba(0,0,0,.2);
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 4px;
+  padding:0;
+  overflow: hidden;
 }

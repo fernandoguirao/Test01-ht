@@ -1,43 +1,122 @@
 var Machine = require("machine");
 module.exports = {
-    'fblogin': function(req, res) {
+    '$id': function(req, res) {
         Machine.build({
-            inputs: {},
+            inputs: {
+                "id": {
+                    "example": "abc123",
+                    "required": true
+                }
+            },
             exits: {
                 respond: {}
             },
             fn: function(inputs, exits) {
-                // Get access token
-                sails.machines['c8d25931-bf1e-4997-be03-18e7c605d85a_1.1.0'].getAccessToken({
-                    "appId": "545559668933267",
-                    "appSecret": "61fac5e3cb34915ca880ed4cf7f0835c",
-                    "code": "AQA38zOK_L5d2oATylLc2c-dxR3FzWT4hP9GttOKNiePwMIS5kvkKNJsiTKo73FUZEY7ULQ8CRK-pQ34_r-VjoCN3t6gb7UHylc40Vjp3UaSJKRpkmv36SM5_8BCXD9UnnEDn8YnxKZrY4clneNxStcHx03oJOGWhNuU0xnK4UZlKkl2dap20UA02M91uTqMX1XOzngcG0B-xwkatiiMiniitWCGE9NNZgioz-huD4zsNQy5_1n7_HLzm943_95Krc2CET2hJSdCNwtc-dt8uuVyp3KnldP2ObQXT3oc9Jx9R4Bz9WCBBsqPzv_7YkbItII#",
-                    "callbackUrl": "http://bigband.me:1337/"
+                // Find One User
+                sails.machines['_project_4053_0.0.2'].findOne_user({
+                    "criteria": {
+                        id: inputs.id
+                    }
+                }).setEnvironment({
+                    sails: sails
                 }).exec({
-                    "error": function(getAccessToken) {
+                    "success": function(findOneUser) {
+                        return exits.respond({
+                            data: findOneUser,
+                            action: "respond_with_result_and_status",
+                            status: 200
+                        });
+
+                    },
+                    "error": function(findOneUser) {
                         return exits.error({
-                            data: getAccessToken,
+                            data: findOneUser,
                             status: 500
                         });
 
                     },
-                    "success": function(getAccessToken) {
-                        // Get user by access token
-                        sails.machines['c8d25931-bf1e-4997-be03-18e7c605d85a_1.1.0'].getUserByAccessToken({
-                            "accessToken": (getAccessToken && getAccessToken.token)
+                    "notFound": function(findOneUser) {
+                        return exits.error({
+                            data: findOneUser,
+                            status: 500
+                        });
+
+                    }
+                });
+            }
+        }).configure(req.params.all(), {
+            respond: res.response,
+            error: res.negotiate
+        }).exec();
+    },
+    'new': function(req, res) {
+        Machine.build({
+            inputs: {
+                "password": {
+                    "example": "l0lcatzz",
+                    "required": true
+                },
+                "email": {
+                    "example": "fernando@bueninvento.es",
+                    "required": true
+                },
+                "nickname": {
+                    "example": "fernando guirao",
+                    "required": true
+                },
+                "picture": {
+                    "example": "http://asdsad.jpg",
+                    "required": true
+                },
+                "first_name": {
+                    "example": "Fernando",
+                    "required": true
+                },
+                "last_name": {
+                    "example": "Guirao",
+                    "required": true
+                }
+            },
+            exits: {
+                respond: {}
+            },
+            fn: function(inputs, exits) {
+                // Encrypt password
+                sails.machines['e05a71f7-485d-443a-803e-029b84fe73a4_2.3.0'].encryptPassword({
+                    "password": inputs.password
+                }).exec({
+                    "error": function(encryptPassword) {
+                        return exits.error({
+                            data: encryptPassword,
+                            status: 500
+                        });
+
+                    },
+                    "success": function(encryptPassword) {
+                        // Create User
+                        sails.machines['_project_4053_0.0.2'].create_user({
+                            "email": inputs.email,
+                            "password": encryptPassword,
+                            "nickname": inputs.nickname,
+                            "options_id": 0,
+                            "picture": inputs.picture,
+                            "first_name": inputs.first_name,
+                            "last_name": inputs.last_name
+                        }).setEnvironment({
+                            sails: sails
                         }).exec({
-                            "error": function(getUserByAccessToken) {
-                                return exits.error({
-                                    data: getUserByAccessToken,
-                                    status: 500
+                            "success": function(createUser) {
+                                return exits.respond({
+                                    data: createUser,
+                                    action: "respond_with_result_and_status",
+                                    status: 200
                                 });
 
                             },
-                            "success": function(getUserByAccessToken) {
-                                return exits.respond({
-                                    data: getUserByAccessToken,
-                                    action: "respond_with_result_and_status",
-                                    status: 200
+                            "error": function(createUser) {
+                                return exits.error({
+                                    data: createUser,
+                                    status: 500
                                 });
 
                             }
@@ -86,72 +165,6 @@ module.exports = {
             error: res.negotiate
         }).exec();
     },
-    'new': function(req, res) {
-        Machine.build({
-            inputs: {
-                "password": {
-                    "example": "l0lcatzz",
-                    "required": true
-                },
-                "email": {
-                    "example": "fernando@bueninvento.es",
-                    "required": true
-                },
-                "nickname": {
-                    "example": "fernando guirao",
-                    "required": true
-                }
-            },
-            exits: {
-                respond: {}
-            },
-            fn: function(inputs, exits) {
-                // Encrypt password
-                sails.machines['e05a71f7-485d-443a-803e-029b84fe73a4_2.3.0'].encryptPassword({
-                    "password": inputs.password
-                }).exec({
-                    "error": function(encryptPassword) {
-                        return exits.error({
-                            data: encryptPassword,
-                            status: 500
-                        });
-
-                    },
-                    "success": function(encryptPassword) {
-                        // Create User
-                        sails.machines['_project_4053_0.0.0'].create_user({
-                            "email": inputs.email,
-                            "password": encryptPassword,
-                            "nickname": inputs.nickname,
-                            "options_id": 0
-                        }).setEnvironment({
-                            sails: sails
-                        }).exec({
-                            "success": function(createUser) {
-                                return exits.respond({
-                                    data: createUser,
-                                    action: "respond_with_result_and_status",
-                                    status: 200
-                                });
-
-                            },
-                            "error": function(createUser) {
-                                return exits.error({
-                                    data: createUser,
-                                    status: 500
-                                });
-
-                            }
-                        });
-
-                    }
-                });
-            }
-        }).configure(req.params.all(), {
-            respond: res.response,
-            error: res.negotiate
-        }).exec();
-    },
     'find': function(req, res) {
         Machine.build({
             inputs: {},
@@ -160,7 +173,7 @@ module.exports = {
             },
             fn: function(inputs, exits) {
                 // List User
-                sails.machines['_project_4053_0.0.0'].find_user({}).setEnvironment({
+                sails.machines['_project_4053_0.0.2'].find_user({}).setEnvironment({
                     sails: sails
                 }).exec({
                     "success": function(listUser) {
@@ -197,7 +210,7 @@ module.exports = {
             },
             fn: function(inputs, exits) {
                 // Find One User
-                sails.machines['_project_4053_0.0.0'].findOne_user({
+                sails.machines['_project_4053_0.0.2'].findOne_user({
                     "criteria": {
                         nickname: inputs.nickname
                     }
@@ -206,11 +219,8 @@ module.exports = {
                 }).exec({
                     "success": function(findOneUser) {
                         return exits.respond({
-                            data: {
-                                nickname: (findOneUser && findOneUser.nickname),
-                                id: (findOneUser && findOneUser.id)
-                            },
-                            action: "respond_with_value_and_status",
+                            data: findOneUser,
+                            action: "respond_with_result_and_status",
                             status: 200
                         });
 
